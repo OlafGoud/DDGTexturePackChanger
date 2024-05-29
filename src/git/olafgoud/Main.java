@@ -1,8 +1,12 @@
 package git.olafgoud;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 import git.olafgoud.file.ReplaceFiles;
+import git.olafgoud.setup.SetUpDirectory;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -17,11 +21,13 @@ import javafx.stage.Stage;
 public class Main extends Application{
 	private String[] vehicleList = {"canary_nbt"};
 	private File folder = null;
+
 	
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		System.out.println("start");
+		SetUpDirectory.setDirectory();
 		
 		launch(args);
 		
@@ -60,16 +66,18 @@ public class Main extends Application{
 					for (String voertuig : vehicleList) {
 						if (voertuig.equals(folder.getName())) {
 							String voertuigNaam = folder.getName();
-							if (voertuigNaam.endsWith("_nbt")) voertuigNaam = voertuigNaam.replace("_nbt", "");
-							ReplaceFiles.replaceFile(folder, voertuigNaam);
+							try {
+								ArrayList<String> listOffAddons = getListOffAddons(voertuigNaam);
+								if (voertuigNaam.endsWith("_nbt")) voertuigNaam = voertuigNaam.replace("_nbt", "");
+								ReplaceFiles.replaceFile(folder, voertuigNaam, listOffAddons);
+							} catch (FileNotFoundException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							
 						}
 					}
-					
-					
-					
 				}
-				
-				
 			}
 			
 		});
@@ -79,7 +87,7 @@ public class Main extends Application{
 		
 		
 		
-		Scene scene = new Scene(root, 100, 100);
+		Scene scene = new Scene(root, 500, 300);
 		
 		stage.setScene(scene);
 		stage.show();
@@ -87,5 +95,23 @@ public class Main extends Application{
 		stage.setTitle("Choose a folder");
 		
 	}
-
+	
+	private ArrayList<String> getListOffAddons(String fileName) throws FileNotFoundException {
+		File file = new File("C:\\Users\\" + System.getProperty("user.name") + "\\TexturePackChanger\\configfiles\\" + fileName + ".txt");
+		ArrayList<String> list = new ArrayList<>();
+		Scanner scanner = new Scanner(file);
+		while (scanner.hasNextLine()) {
+			list.add(scanner.nextLine());
+		}
+		
+		
+		
+		
+		return list;
+		
+	}
+	
+	
+	
+	
 }

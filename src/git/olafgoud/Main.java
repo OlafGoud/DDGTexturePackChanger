@@ -41,7 +41,7 @@ public class Main extends Application{
 
 			@Override
 			public void handle(ActionEvent arg0) {
-				DirectoryChooser  fileChooser = new DirectoryChooser();
+				DirectoryChooser fileChooser = new DirectoryChooser();
 				
 				fileChooser.setTitle("Open A Folder");
 				File selectedFolder = fileChooser.showDialog(stage);
@@ -57,8 +57,16 @@ public class Main extends Application{
 			@Override
 			public void handle(ActionEvent arg0) {
 				if (folder != null) {
-				
-					ReplaceFiles.replaceFile(folder, "canary");
+					for (String voertuig : vehicleList) {
+						if (voertuig.equals(folder.getName())) {
+							String voertuigNaam = folder.getName();
+							if (voertuigNaam.endsWith("_nbt")) voertuigNaam = voertuigNaam.replace("_nbt", "");
+							ReplaceFiles.replaceFile(folder, voertuigNaam);
+						}
+					}
+					
+					
+					
 				}
 				
 				

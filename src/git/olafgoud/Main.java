@@ -79,6 +79,7 @@ public class Main extends Application{
 							try {
 								ArrayList<String> listOffAddons = getListOffAddons(voertuigNaam);
 								if (voertuigNaam.endsWith("_nbt")) voertuigNaam = voertuigNaam.replace("_nbt", "");
+								if (voertuigNaam.endsWith("_nbt")) voertuigNaam = voertuigNaam.replace("_new", "");
 								ReplaceFiles.replaceFile(folder, voertuigNaam, listOffAddons);
 							} catch (FileNotFoundException e) {
 								// TODO Auto-generated catch block

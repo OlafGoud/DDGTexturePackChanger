@@ -2,6 +2,7 @@ package git.olafgoud;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -19,7 +20,7 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
 public class Main extends Application{
-	private String[] vehicleList = {"canary_nbt"};
+	private static ArrayList<String> vehicleList;
 	private File folder = null;
 
 	
@@ -28,6 +29,16 @@ public class Main extends Application{
 		// TODO Auto-generated method stub
 		System.out.println("start");
 		SetUpDirectory.setDirectory();
+		File directory = new File("C:\\Users\\" + System.getProperty("user.name") + "\\TexturePackChanger\\configfiles");
+		FilenameFilter filter = new FilenameFilter() {
+			@Override
+			public boolean accept(File dir, String name) {
+				return name.toLowerCase().endsWith(".txt");
+			}
+		};
+		for(File txtFile : directory.listFiles(filter)) {
+			vehicleList.add(txtFile.getName().replace(".txt", ""));
+		}
 		
 		launch(args);
 		
@@ -104,7 +115,7 @@ public class Main extends Application{
 			list.add(scanner.nextLine());
 		}
 		
-		
+		scanner.close();
 		
 		
 		return list;

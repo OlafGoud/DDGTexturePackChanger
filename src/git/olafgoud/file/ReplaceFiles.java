@@ -31,16 +31,28 @@ public class ReplaceFiles {
 			for (File file1 : folderList) {
 				String fileName1 = file1.getName().replace(".properties", "");
 				if (!fileName1.startsWith((vehicleName + "_" + activeAddon))) continue;
+				if (fileName1.equals(vehicleName + "_" + activeAddon + "_" + "gray")) {
+					fileHandler(file, vehicleName + "_" + activeAddon + "_" + "gray");
+					if(!(file.getName().replace(".properties", "")).equals(vehicleName + "_" + activeAddon + "_" + "gray")) {
+						fileDeleter(dirctory.getAbsolutePath() + "\\" + file.getName().replace(".properties", ".png"));
+						fileDeleter(dirctory.getAbsolutePath() + "\\" + file.getName().replace(".properties", ".json"));
+					}
+					break;
+				}
 				if (fileName1.equals(vehicleName + "_" + activeAddon + "_" + "normal")) {
-					System.out.println(vehicleName + "_" + activeAddon + "_" + "normal");
 					fileHandler(file, vehicleName + "_" + activeAddon + "_" + "normal");
+					if(!(file.getName().replace(".properties", "")).equals(vehicleName + "_" + activeAddon + "_" + "normal")) {
+						fileDeleter(dirctory.getAbsolutePath() + "\\" + file.getName().replace(".properties", ".png"));
+						fileDeleter(dirctory.getAbsolutePath() + "\\" + file.getName().replace(".properties", ".json"));
+					}
 					break;
 				}
 				if (fileName1.replaceAll(" ", "").equals(vehicleName + "_" + activeAddon)) {
 					fileHandler(file, vehicleName + "_" + activeAddon);
-					fileDeleter(dirctory.getAbsolutePath() + "\\" + file.getName().replace(".properties", ".png"));
-					fileDeleter(dirctory.getAbsolutePath() + "\\" + file.getName().replace(".properties", ".json"));
-
+					if(!(file.getName().replace(".properties", "")).equals(vehicleName + "_" + activeAddon)) {
+						fileDeleter(dirctory.getAbsolutePath() + "\\" + file.getName().replace(".properties", ".png"));
+						fileDeleter(dirctory.getAbsolutePath() + "\\" + file.getName().replace(".properties", ".json"));
+					}
 					break;
 				}
 			}
@@ -91,7 +103,7 @@ public class ReplaceFiles {
 	public static void fileDeleter(String file) {
 	    File deleteFile = new File(file); 
 	    if (deleteFile.delete()) { 
-	    	
+	    	System.out.println("file:" + deleteFile);
 	    } else {
 	      System.out.println("Failed to delete the file.");
 	    } 

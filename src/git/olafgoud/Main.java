@@ -20,7 +20,7 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
 public class Main extends Application{
-	private static ArrayList<String> vehicleList;
+	private static ArrayList<String> vehicleList = new ArrayList<>();
 	private File folder = null;
 
 	
@@ -45,7 +45,6 @@ public class Main extends Application{
 		
 		
 		
-		//ReplaceFiles.replaceFile("canary");
 	}
 
 
